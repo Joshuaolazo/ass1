@@ -1,20 +1,28 @@
 Notes
 
-1. Read Input
+1. Read Input (done)
 	a. -c Column
+		i. 		make sure its present
 	b. -d Directory
 		i. 		if null use current directory
 		ii.		if wrong output error****
+			A. 		Wont be able to open with opendir
 	c. -o Output Directory
 		i.		if null save in same directory
 		ii.		if wrong make the directory****
-
 	d. Make sure column flags are correct
 		i.		input letters
+			A. 		Must be c,d,o
 		ii.		number of args
+			A. 		0,1,2,4,6,8+ Wrong
+			B. 		3,3,5 Correct
 		iii.	pattern of args
+			A. 		Assume pattern of -c -d -o
 
-2. Read First Directory (files)
+2. Go to directory
+
+
+3. Open Directory/files
 	a. Ignore parent and current directory (. and ..)
 	b. Keep a string of directories??
 	c. On .csv
