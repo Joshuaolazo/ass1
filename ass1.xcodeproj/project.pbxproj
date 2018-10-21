@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		420E8EE0217C274900DBC00F /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 420E8EDF217C274900DBC00F /* main.c */; };
+		420E8EE8217C27D400DBC00F /* ScannerCSVsorter.c in Sources */ = {isa = PBXBuildFile; fileRef = 420E8EE7217C27D400DBC00F /* ScannerCSVsorter.c */; };
+		420E8EED217C2A6800DBC00F /* simpleCSVsorter.c in Sources */ = {isa = PBXBuildFile; fileRef = 420E8EEA217C2A6700DBC00F /* simpleCSVsorter.c */; settings = {COMPILER_FLAGS = "-c"; }; };
+		420E8EEE217C2A6800DBC00F /* mergesort.c in Sources */ = {isa = PBXBuildFile; fileRef = 420E8EEB217C2A6800DBC00F /* mergesort.c */; settings = {COMPILER_FLAGS = "-c"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +25,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		420E8EDC217C274900DBC00F /* l,m, */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "l,m,"; sourceTree = BUILT_PRODUCTS_DIR; };
-		420E8EDF217C274900DBC00F /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		420E8EDC217C274900DBC00F /* ass1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ass1; sourceTree = BUILT_PRODUCTS_DIR; };
+		420E8EE6217C27D400DBC00F /* ScannerCSVsorter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScannerCSVsorter.h; sourceTree = "<group>"; };
+		420E8EE7217C27D400DBC00F /* ScannerCSVsorter.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ScannerCSVsorter.c; sourceTree = "<group>"; };
+		420E8EEA217C2A6700DBC00F /* simpleCSVsorter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = simpleCSVsorter.c; sourceTree = "<group>"; };
+		420E8EEB217C2A6800DBC00F /* mergesort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mergesort.c; sourceTree = "<group>"; };
+		420E8EEC217C2A6800DBC00F /* simpleCSVsorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simpleCSVsorter.h; sourceTree = "<group>"; };
+		420E8EF0217C355800DBC00F /* Script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Script.sh; sourceTree = "<group>"; };
+		420E8EF1217C722400DBC00F /* Notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +49,7 @@
 		420E8ED3217C274900DBC00F = {
 			isa = PBXGroup;
 			children = (
-				420E8EDE217C274900DBC00F /* l,m, */,
+				420E8EDE217C274900DBC00F /* ass1 */,
 				420E8EDD217C274900DBC00F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -49,25 +57,31 @@
 		420E8EDD217C274900DBC00F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				420E8EDC217C274900DBC00F /* l,m, */,
+				420E8EDC217C274900DBC00F /* ass1 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		420E8EDE217C274900DBC00F /* l,m, */ = {
+		420E8EDE217C274900DBC00F /* ass1 */ = {
 			isa = PBXGroup;
 			children = (
-				420E8EDF217C274900DBC00F /* main.c */,
+				420E8EEB217C2A6800DBC00F /* mergesort.c */,
+				420E8EEC217C2A6800DBC00F /* simpleCSVsorter.h */,
+				420E8EEA217C2A6700DBC00F /* simpleCSVsorter.c */,
+				420E8EE6217C27D400DBC00F /* ScannerCSVsorter.h */,
+				420E8EE7217C27D400DBC00F /* ScannerCSVsorter.c */,
+				420E8EF0217C355800DBC00F /* Script.sh */,
+				420E8EF1217C722400DBC00F /* Notes.txt */,
 			);
-			path = "l,m,";
+			path = ass1;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		420E8EDB217C274900DBC00F /* l,m, */ = {
+		420E8EDB217C274900DBC00F /* ass1 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 420E8EE3217C274900DBC00F /* Build configuration list for PBXNativeTarget "l,m," */;
+			buildConfigurationList = 420E8EE3217C274900DBC00F /* Build configuration list for PBXNativeTarget "ass1" */;
 			buildPhases = (
 				420E8ED8217C274900DBC00F /* Sources */,
 				420E8ED9217C274900DBC00F /* Frameworks */,
@@ -77,9 +91,9 @@
 			);
 			dependencies = (
 			);
-			name = "l,m,";
+			name = ass1;
 			productName = "l,m,";
-			productReference = 420E8EDC217C274900DBC00F /* l,m, */;
+			productReference = 420E8EDC217C274900DBC00F /* ass1 */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -96,7 +110,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 420E8ED7217C274900DBC00F /* Build configuration list for PBXProject "l,m," */;
+			buildConfigurationList = 420E8ED7217C274900DBC00F /* Build configuration list for PBXProject "ass1" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -108,7 +122,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				420E8EDB217C274900DBC00F /* l,m, */,
+				420E8EDB217C274900DBC00F /* ass1 */,
 			);
 		};
 /* End PBXProject section */
@@ -118,7 +132,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				420E8EE0217C274900DBC00F /* main.c in Sources */,
+				420E8EEE217C2A6800DBC00F /* mergesort.c in Sources */,
+				420E8EED217C2A6800DBC00F /* simpleCSVsorter.c in Sources */,
+				420E8EE8217C27D400DBC00F /* ScannerCSVsorter.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +271,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		420E8ED7217C274900DBC00F /* Build configuration list for PBXProject "l,m," */ = {
+		420E8ED7217C274900DBC00F /* Build configuration list for PBXProject "ass1" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				420E8EE1217C274900DBC00F /* Debug */,
@@ -264,7 +280,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		420E8EE3217C274900DBC00F /* Build configuration list for PBXNativeTarget "l,m," */ = {
+		420E8EE3217C274900DBC00F /* Build configuration list for PBXNativeTarget "ass1" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				420E8EE4217C274900DBC00F /* Debug */,

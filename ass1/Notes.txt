@@ -1,0 +1,30 @@
+Notes
+
+1. Read Input
+	a. -c Column
+	b. -d Directory
+		i. 		if null use current directory
+		ii.		if wrong output error****
+	c. -o Output Directory
+		i.		if null save in same directory
+		ii.		if wrong make the directory****
+
+	d. Make sure column flags are correct
+		i.		input letters
+		ii.		number of args
+		iii.	pattern of args
+
+2. Read First Directory (files)
+	a. Ignore parent and current directory (. and ..)
+	b. Keep a string of directories??
+	c. On .csv
+		i.	 	fork()
+		ii. 	check csv for correct format
+		iii.	sort csv
+		iv.		print PID????
+	d. on directory
+		i.		fork()
+		ii.		
+
+
+
