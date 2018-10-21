@@ -9,7 +9,7 @@
 #include "ScannerCSVsorter.h"
 
 
-int main(){
+int maijn(){
 	
 	
 	return 0;
