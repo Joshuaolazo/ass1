@@ -13,8 +13,8 @@
 #include "simpleCSVsorter.h"
 
 
-// 
-int main(int argc, char *argv[]){
+/*
+int maisn(int argc, char *argv[]){
 	// Input in form ./simpleCSVsorter -c food
 	if(argc<3){
 		fprintf(stderr,"%s","Incorrect input arguments");
@@ -73,3 +73,4 @@ int main(int argc, char *argv[]){
 
 	return column_number;
 }
+*/
