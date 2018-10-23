@@ -79,22 +79,49 @@ int main(int argc, char *argv[]){
 			fprintf(stderr,"%s\n","Too many input arguments");
 			return -1;
 	}
-	printf("column is: %s\n",sorting_column);
-	
-	printf("directory is: %s\n", sorting_directory);
-	printf("output is: %s\n",output_directory);
-	/* Go to starting dir, if null then start at parent dir
-	DIR *startdir;
-	struct dirent *startdirent;
+	return 0;
+}
+
+
+static int directory_crawler(char * sorting_directory){
+	DIR *directory;
+	struct dirent *dirent;
 	if( strlen(sorting_directory) == 0){
 		sorting_directory =".";
 	}
-	startdir = opendir(sorting_directory);
-	if( !startdir){
+	directory = opendir(sorting_directory);
+	if( !directory){
 		fprintf(stderr,"Cannot open directory: %s\n", strerror (errno));
 		return -1;
 	}
-	*/
-	return 0;
-	 
+	while(1){
+		const char * d_name;
+		dirent = readdir (directory);
+		if (! dirent) {
+			/* There are no more entries in this directory, so break
+			 out of the while loop. */
+			break;
+		}
+		d_name = dirent->d_name;
+		/* Print the name of the file and directory. */
+		printf ("%s/%s\n", sorting_directory, d_name);
+		
+		if (! (dirent->d_type & DT_DIR)) {
+			printf ("%s/%s\n", sorting_directory, d_name);
+		}
+		
+		if (dirent->d_type & DT_DIR) {
+			
+			/* Check that the directory is not "d" or d's parent. */
+			
+			if (strcmp (d_name, "..") != 0 &&
+				strcmp (d_name, ".") != 0) {
+				/* Recursively call "list_dir" with the new path. */
+				directory_crawler(path);
+			}
+		}
+		
+		
+	}
+	
 }

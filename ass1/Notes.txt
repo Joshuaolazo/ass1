@@ -20,6 +20,7 @@ Notes
 			A. 		Assume pattern of -c -d -o
 
 2. Go to directory
+	( I believe that go to directory is not something that we have to handle)
 
 
 3. Open Directory/files
