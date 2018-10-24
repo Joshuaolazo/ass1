@@ -18,7 +18,7 @@
 int directory_crawler(char*);
 int dummy(void);
 
-int PRINT = 1;
+int PRINT = 0;
 
 int main(int argc, char *argv[]){
 	// Check for good arguments example below
@@ -133,22 +133,26 @@ int directory_crawler(char * sorting_directory){
 					printf("New directory: %s\n", new_directory);
 				}
 				int child = fork();
+				fflush(stdout);
 				int pid = getpid();
 				if(child ==0 && PRINT > 0){
 					printf("%d,",pid);
+					exit(1);
 				}
 				
 				directory_crawler(new_directory);
-			
+				
 			}
 			
 		}else{
 			int child = fork();
+			fflush(stdout);
 			int x = dummy();
 			x++;
 			int pid = getpid();
 			if(child ==0 && PRINT >0){
 				printf("%d,",pid);
+				exit(1);
 			}
 		
 		}
