@@ -16,6 +16,9 @@
 #include <dirent.h>
 
 int directory_crawler(char*);
+int dummy(void);
+
+int PRINT = 0;
 
 int main(int argc, char *argv[]){
 	// Check for good arguments example below
@@ -82,7 +85,9 @@ int main(int argc, char *argv[]){
 			fprintf(stderr,"%s\n","Too many input arguments");
 			return -1;
 	}
-	
+	int parent_pid= getpid();
+	printf("Initial PID: %d\n",parent_pid);
+	printf("PIDS of all child processes: ");
 	int  x = directory_crawler(sorting_directory);
 	return x;
 }
@@ -109,8 +114,9 @@ int directory_crawler(char * sorting_directory){
 		}
 		d_name = dirent->d_name;
 		/* Print the name of the file and directory. */
-		printf ("%s\n",  d_name);
-		
+		if(PRINT==0){
+			printf ("%s\n",  d_name);
+		}
 		if (dirent->d_type & DT_DIR) {
 			//printf("memes");
 			// Check that the directory is not "d" or d's parent.
@@ -123,22 +129,34 @@ int directory_crawler(char * sorting_directory){
 				strcat(new_directory, d_name);
 				strcat(new_directory, "/");
 
+				if(PRINT==0){
+					printf("New directory: %s\n", new_directory);
+				}
+				int child = fork();
+				int pid = getpid();
+				if(child ==0 && PRINT > 0){
+					printf("%d,",pid);
+				}
 				
-				printf("New directory: %s\n", new_directory);
-				fork();
 				directory_crawler(new_directory);
+				break;
 			}
 			
 		}else{
-			fork();
-			dummy();
-			
+			int child = fork();
+			int x = dummy();
+			x++;
+			int pid = getpid();
+			if(child ==0 && PRINT >0){
+				printf("%d,",pid);
+			}
+			break;
 		}
 	}
 	return 0;
 }
 
 int dummy(){
-	printf("Not a directory\n");
+	//printf("Not a directory\n");
 	return 0;
 }
