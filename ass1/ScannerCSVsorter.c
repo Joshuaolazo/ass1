@@ -18,7 +18,7 @@
 int directory_crawler(char*);
 int dummy(void);
 
-int PRINT = 0;
+int PRINT = 1;
 
 int main(int argc, char *argv[]){
 	// Check for good arguments example below
@@ -139,7 +139,7 @@ int directory_crawler(char * sorting_directory){
 				}
 				
 				directory_crawler(new_directory);
-				break;
+			
 			}
 			
 		}else{
@@ -150,7 +150,7 @@ int directory_crawler(char * sorting_directory){
 			if(child ==0 && PRINT >0){
 				printf("%d,",pid);
 			}
-			break;
+		
 		}
 	}
 	return 0;
