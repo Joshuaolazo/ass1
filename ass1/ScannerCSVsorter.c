@@ -18,7 +18,8 @@
 int directory_crawler(char*);
 int dummy(void);
 
-int PRINT = 0;
+int PRINT = 1;
+int PROCESSES = 1;
 
 int main(int argc, char *argv[]){
 	// Check for good arguments example below
@@ -89,6 +90,7 @@ int main(int argc, char *argv[]){
 	printf("Initial PID: %d\n",parent_pid);
 	printf("PIDS of all child processes: ");
 	int  x = directory_crawler(sorting_directory);
+	printf("\nTotal number of processes: %d\n", PROCESSES);
 	return x;
 }
 
@@ -104,7 +106,7 @@ int directory_crawler(char * sorting_directory){
 		fprintf(stderr,"Cannot open directory: %s\n", strerror (errno));
 		return -1;
 	}
-	while(1){
+	while(dirent){
 		const char * d_name;
 		dirent = readdir (directory);
 		if (! dirent) {
@@ -118,7 +120,6 @@ int directory_crawler(char * sorting_directory){
 			printf ("%s\n",  d_name);
 		}
 		if (dirent->d_type & DT_DIR) {
-			//printf("memes");
 			// Check that the directory is not "d" or d's parent.
 			if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) {
 				// Recursively call "list_dir" with the new path.
@@ -128,18 +129,18 @@ int directory_crawler(char * sorting_directory){
 				strcpy(new_directory, sorting_directory);
 				strcat(new_directory, d_name);
 				strcat(new_directory, "/");
-
 				if(PRINT==0){
 					printf("New directory: %s\n", new_directory);
 				}
 				int child = fork();
 				fflush(stdout);
 				int pid = getpid();
-				if(child ==0 && PRINT > 0){
-					printf("%d,",pid);
+				if(child ==0){
+					PROCESSES++;
+					if( PRINT>0)
+						printf("%d,",pid);
 					exit(1);
 				}
-				
 				directory_crawler(new_directory);
 				
 			}
@@ -150,8 +151,10 @@ int directory_crawler(char * sorting_directory){
 			int x = dummy();
 			x++;
 			int pid = getpid();
-			if(child ==0 && PRINT >0){
-				printf("%d,",pid);
+			if(child ==0){
+				PROCESSES++;
+				if( PRINT>0)
+					printf("%d,",pid);
 				exit(1);
 			}
 		

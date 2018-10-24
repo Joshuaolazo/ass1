@@ -1,6 +1,6 @@
 Notes
 
-1. Read Input (done)
+1. Read Input (Maybe have to rewrite)
 	a. -c Column
 		i. 		make sure its present
 	b. -d Directory
@@ -19,21 +19,45 @@ Notes
 		iii.	pattern of args
 			A. 		Assume pattern of -c -d -o
 
-2. Go to directory
-	( I believe that go to directory is not something that we have to handle)
+2. Go to directory (TODO)
+	a. Call method to see if file is directory (TODO)
 
 
-3. Open Directory/files
-	a. Ignore parent and current directory (. and ..)
-	b. Keep a string of directories??
-	c. On .csv
+3. Open Directory/files (Almost Done)
+	a. Ignore parent and current directory (. and ..) (DONE)
+	b. Keep a string of directories (DONE)
+	c. On .csv (DONE)
 		i.	 	fork()
-		ii. 	check csv for correct format
 		iii.	sort csv
-		iv.		print PID????
-	d. on directory
+		iv.		print PID
+	d. on directory (DONE)
 		i.		fork()
-		ii.		
+		ii.		recurse
+	e. count forks (TODO)
+	f. use the return value of fork() in a conditional to choose different blocks of code to run within your code (TODO)
+	g. prevent zombie and orphan child processes (TODO)
+	h. do not create fork bombs that will bring down machines (TODO)
+	i. assume 255 is max (TODO)
+-----
+
+1. Modularize Ass0 (DONE)
+2. Check for CSV Validity (DONE)
+	a. .csv
+		i.		make sure column is in csv or output error (DONE)
+	b. follows csv format
+		i. 		check for same amount of commas (DONE)
+		ii.		ignore commas in quotes (DONE)
+		iii.	check for column headers are in the list (???)
+		iv.		close file if wrong and deallocate (maybe)
+			A. 		Free before return on error
+3. Sort File (Random Errors but done)
+	a. output with -sorted- (DONE)
+4. Output into directory (TODO)
 
 
+-----
 
+1. Document Design
+	a. how to use code
+2. Make test csv files and describe them
+3. Ask about random characters
