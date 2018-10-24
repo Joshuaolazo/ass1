@@ -112,7 +112,7 @@ int directory_crawler(char * sorting_directory){
 		printf ("%s\n",  d_name);
 		
 		if (dirent->d_type & DT_DIR) {
-			
+			//printf("memes");
 			// Check that the directory is not "d" or d's parent.
 			if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) {
 				// Recursively call "list_dir" with the new path.
@@ -121,12 +121,24 @@ int directory_crawler(char * sorting_directory){
 				char* new_directory = malloc(directorylen+d_namelen+1);
 				strcpy(new_directory, sorting_directory);
 				strcat(new_directory, d_name);
+				strcat(new_directory, "/");
+
+				
 				printf("New directory: %s\n", new_directory);
+				fork();
 				directory_crawler(new_directory);
 			}
+			
+		}else{
+			fork();
+			dummy();
+			
 		}
-		
-		
 	}
+	return 0;
+}
+
+int dummy(){
+	printf("Not a directory\n");
 	return 0;
 }
