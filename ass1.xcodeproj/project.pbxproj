@@ -33,6 +33,7 @@
 		420E8EEC217C2A6800DBC00F /* simpleCSVsorter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simpleCSVsorter.h; sourceTree = "<group>"; };
 		420E8EF0217C355800DBC00F /* Script.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = Script.sh; sourceTree = "<group>"; };
 		420E8EF1217C722400DBC00F /* Notes.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Notes.txt; sourceTree = "<group>"; };
+		42633C9C218000B200B30F00 /* ScannerCSVsorter */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = ScannerCSVsorter; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +66,7 @@
 		420E8EDE217C274900DBC00F /* ass1 */ = {
 			isa = PBXGroup;
 			children = (
+				42633C9C218000B200B30F00 /* ScannerCSVsorter */,
 				420E8EEB217C2A6800DBC00F /* mergesort.c */,
 				420E8EEC217C2A6800DBC00F /* simpleCSVsorter.h */,
 				420E8EEA217C2A6700DBC00F /* simpleCSVsorter.c */,

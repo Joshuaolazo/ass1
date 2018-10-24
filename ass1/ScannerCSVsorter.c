@@ -15,6 +15,7 @@
 #include "ScannerCSVsorter.h"
 #include <dirent.h>
 
+int directory_crawler(char*);
 
 int main(int argc, char *argv[]){
 	// Check for good arguments example below
@@ -23,7 +24,9 @@ int main(int argc, char *argv[]){
 	// More descriptive error messages for bad flags
 	char* sorting_column = NULL;
 	char* sorting_directory = NULL;
+	sorting_directory = "./";
 	char* output_directory = NULL;
+	output_directory = "./";
 	switch (argc) {
 		// "Bad" Input Args
 		// Returns descriptive error message
@@ -79,11 +82,13 @@ int main(int argc, char *argv[]){
 			fprintf(stderr,"%s\n","Too many input arguments");
 			return -1;
 	}
-	return 0;
+	
+	int  x = directory_crawler(sorting_directory);
+	return x;
 }
 
 
-static int directory_crawler(char * sorting_directory){
+int directory_crawler(char * sorting_directory){
 	DIR *directory;
 	struct dirent *dirent;
 	if( strlen(sorting_directory) == 0){
@@ -104,24 +109,24 @@ static int directory_crawler(char * sorting_directory){
 		}
 		d_name = dirent->d_name;
 		/* Print the name of the file and directory. */
-		printf ("%s/%s\n", sorting_directory, d_name);
-		
-		if (! (dirent->d_type & DT_DIR)) {
-			printf ("%s/%s\n", sorting_directory, d_name);
-		}
+		printf ("%s\n",  d_name);
 		
 		if (dirent->d_type & DT_DIR) {
 			
-			/* Check that the directory is not "d" or d's parent. */
-			
-			if (strcmp (d_name, "..") != 0 &&
-				strcmp (d_name, ".") != 0) {
-				/* Recursively call "list_dir" with the new path. */
-				directory_crawler(path);
+			// Check that the directory is not "d" or d's parent.
+			if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) {
+				// Recursively call "list_dir" with the new path.
+				int directorylen= (int) strlen(sorting_directory);
+				int d_namelen= (int) strlen(d_name);
+				char* new_directory = malloc(directorylen+d_namelen+1);
+				strcpy(new_directory, sorting_directory);
+				strcat(new_directory, d_name);
+				printf("New directory: %s\n", new_directory);
+				directory_crawler(new_directory);
 			}
 		}
 		
 		
 	}
-	
+	return 0;
 }
