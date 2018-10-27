@@ -10,7 +10,7 @@
 #include "scannerCSVsorter.h"
 
 
-//Where argv is what we're sorting by , file, directory
+//Where argv is what we're sorting by , file, output directory
 int sortCSV(char *argv, char* ffile, char* ddir){
 	
 	/*	error checks from PA0	
@@ -87,6 +87,10 @@ while((getline(&buffer, &len, fp)!=-1)){
 		Node * current = (Node*)malloc(sizeof(Node));
 		char * copystring = (char *)malloc(sizeof(char)*strlen(buffer));
 		strcpy(copystring, buffer);
+		//for last input which ends in EOF
+		if(copystring[strlen(copystring)-1]!='\n')
+		copystring[strlen(copystring)] = '\n';
+		
 		current->data = copystring;
 		ptr->next = current;
 		ptr = ptr->next;
@@ -227,8 +231,13 @@ while((getline(&buffer, &len, fp)!=-1)){
 		
 		for(k=1;k<strlen(find);k++)
 		find[k-1]=find[k];
+		
 		find[strlen(find)-1]= '\0';
 		}
+		
+		while(find[strlen(find)-1]==' ')
+		find[strlen(find)-1]='\0';
+		
 		if(find[strlen(find)-1]=='\n')
 		find[strlen(find)-1]='\0';
 		temp1->cat=find;
@@ -242,7 +251,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 		//ignore
 		fprintf(stderr, "%s\n","Error: Parameter not found.");
 		fclose(fp);
-		return 0;
+		return -1;
 	}
 	//Checking directory
 	struct stat st = {0};
@@ -261,7 +270,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 	for(i=0;i<4;i++)
 	fileStub[strlen(fileStub)-1] = '\0';
 	 
-	printf("fuck you bitch\n");
+	//printf("fuck you bitch\n");
 	char* newFileName = malloc((strlen(argv)+strlen(ffile))*sizeof(char));
 	if(ddir!=NULL)
 	strcpy(newFileName,ddir);
@@ -364,9 +373,9 @@ int main(int argc, char **argv){
 	char* a = malloc(sizeof(char)*20);
 	char* b = malloc(sizeof(char)*20);
 	char* c = malloc(sizeof(char)*30);
-	a="movie_title";
+	a="s";
 	b="test.csv";
-	c="franciscolivesinhismother'sbasement/";
+	c="franciscolivesinhismother'sbasement/pie/";
 	sortCSV(a,b,c);
 	
 	return 0;
