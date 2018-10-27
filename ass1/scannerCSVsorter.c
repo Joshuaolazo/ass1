@@ -258,7 +258,10 @@ while((getline(&buffer, &len, fp)!=-1)){
 	
 	//Creates directory if it DNE
 	if(stat(ddir, &st)== -1){
-	mkdir(ddir, 0700);	
+	//mkdir(ddir, 0700);	creates the directory ddir
+		fprintf(stderr, "%s\n","Error: Output Directory DOES NOT EXIST.");
+		fclose(fp);
+		return -1;
 	}
 	
 	
