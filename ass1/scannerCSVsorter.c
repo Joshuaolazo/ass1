@@ -200,7 +200,7 @@ int sortCSV(char *argv, char* ffile, char* ddir, char* idir){
 	
 	//file + directory
 	char * fffile;
-	fffile = malloc(sizeof(char)*(strlen(idir) + strlen(ffile)));
+	fffile = (char*) malloc(sizeof(char*)*(strlen(idir) + strlen(ffile)));
 	
 	
 	//Checking directory
