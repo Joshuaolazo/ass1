@@ -12,7 +12,7 @@
 #include "scannerCSVsorter.h"
 
 
-int PRINT = 1;
+int PRINT = 3;
 
 int main(int argc, char *argv[]){
 	// Check for good arguments example below
