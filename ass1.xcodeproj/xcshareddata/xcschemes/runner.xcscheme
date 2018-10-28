@@ -33,6 +33,14 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "-c movie_title"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-c movie_title -d ./hi/"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-c movie_title -d ./ -o ./hi/cheese/"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

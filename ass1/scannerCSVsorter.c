@@ -12,7 +12,7 @@
 #include "scannerCSVsorter.h"
 
 
-int PRINT = 1;
+int PRINT = 3;
 int PROCESSES = 1;
 
 int main(int argc, char *argv[]){
@@ -24,7 +24,6 @@ int main(int argc, char *argv[]){
 	char* sorting_directory = NULL;
 	sorting_directory = "./";
 	char* output_directory = NULL;
-	output_directory = "./";
 	switch (argc) {
 			// "Bad" Input Args
 			// Returns descriptive error message
@@ -84,12 +83,16 @@ int main(int argc, char *argv[]){
 	int parent_pid= getpid();
 	
 	// Print Statements for output
-
+	if(PRINT ==1 || PRINT ==3 ){
+		
+		
 		printf("Initial PID: %d\n",parent_pid);
 		char message[]  = "PIDS of all child processes: \0";
 		printf("%s",message);
+		
+		
+	}
 
-	
 	// Start sorting process
 	int i = 0;
 	int * count;
@@ -122,11 +125,13 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 			break;
 		}
 		d_name = dirent->d_name;
-		if(PRINT==0){
+		if(PRINT==0|| PRINT ==3){
 			printf ("%s\n",  d_name);
 		}
 		if (dirent->d_type & DT_DIR) {
 			if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) {
+				if(PRINT == 3)
+					printf("DIRECTORY\n");
 				int directorylen= (int) strlen(sorting_directory);
 				int d_namelen= (int) strlen(d_name);
 				char* new_directory = malloc(directorylen+d_namelen+1);
@@ -141,32 +146,36 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 				int pid = getpid();
 				int status = 0;
 				if(child ==0){
-					if( PRINT==1)
+					if( PRINT==1 ||PRINT == 3){
 						printf("%d,",pid);
+						printf ("%d\n",  *count);
+					}
 					exit(1);
 				}else{
-					while ((wpid = wait(&status)) > 0);
+					while ((pid = wait(&status)) > 0);
 					if(PRINT == 0)
 						printf("Count is: %d",*count);
 					*count= *count +1;
-					directory_crawler(new_directory,sorting_column,sorting_directory,count);
+					directory_crawler(new_directory,sorting_column,output_directory,count);
 				}
 				
 			}
 			
 		}else{
+			printf("file\n");
 			pid_t child = fork();
 			fflush(stdout);
 			int pid = getpid();
 			int status = 0;
-			pid_t child_pid, wpid;
 			if(child ==0){
-				if( PRINT==1)
+				if( PRINT==1 ||PRINT == 3){
 					printf("%d,",pid);
+					printf ("%d\n",  *count);
+				}
 				exit(1);
 			}else{
-				while ((wpid = wait(&status)) > 0);
-				if(PRINT == 0)
+				while ((pid = wait(&status)) > 0);
+				if(PRINT ==  0)
 					printf("Count is: %d",*count);
 				*count = *count +1 ;
 				sortCSV(sorting_column,(char*) d_name, output_directory, sorting_directory);
@@ -183,6 +192,9 @@ int sortCSV(char *argv, char* ffile, char* ddir, char* idir){
 	char* sortedd = (char*) malloc(sizeof(char*)*10);
 	sortedd = "-sorted-";
 	if(strstr(ffile,sortedd)!=NULL){
+		if(PRINT ==3){
+			printf("Already Sorted\n");
+		}
 		return -1;
 	}
 	
@@ -199,13 +211,15 @@ int sortCSV(char *argv, char* ffile, char* ddir, char* idir){
 		strcpy(fffile,idir);
 		strcat(fffile,ffile);
 	}
-	else
+	else{
 		strcpy(fffile,ffile);
-	
+	}
 	
 	//check if file exists
-
-
+	printf("seide\n");
+	if(PRINT ==3){
+		printf("FILE PATH is: %s\n", fffile);
+	}
 FILE *fp;
 fp = fopen(fffile,"r");
 
@@ -228,10 +242,10 @@ end[h]=ffile[z];
 h++;
 }
 if(strcmp(end,".csv")!=0){
-	if(PRINT ==0)
+	if(PRINT ==0|| PRINT ==3)
 		printf("notcsv\n");
 	fclose(fp);
-	if(PRINT == 0)
+	if(PRINT == 0 || PRINT ==3)
 		printf("one\n");
 	return -1;
 }else{
@@ -435,7 +449,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 		//ignore
 		fprintf(stderr, "%s\n","Error: Parameter not found.");
 		fclose(fp);
-		if(PRINT == 0)
+		if(PRINT == 0 || PRINT ==3 )
 			printf("three\n");
 		return -1;
 	}
@@ -463,15 +477,21 @@ while((getline(&buffer, &len, fp)!=-1)){
 	 
 	char* newFileName = malloc((strlen(argv)+strlen(ffile))*sizeof(char));
 	if(ddir!=NULL){
+		printf("ddir is not null\n");
+		printf("ddir is: %s\n", ddir);
+		printf("idir is: %s\n", idir);
 		strcpy(newFileName,ddir);
 		strcat(newFileName,fileStub);
 	}else{
-		strcpy(newFileName,fileStub);
+		printf("ddir is: %s\n", ddir);
+		printf("idir is: %s\n", idir);
+		strcpy(newFileName,idir);
+		strcat(newFileName,fileStub);
 	}
 	strcat(newFileName,"-sorted-");
 	strcat(newFileName,argv);
 	strcat(newFileName,".csv");
-	if(PRINT== 0)
+	if(PRINT== 0 || PRINT ==3 )
 		printf("%s\n",newFileName);
 
 	fclose(fp);
@@ -487,7 +507,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 	}
 	
 	fclose(new);
-	if(PRINT == 0)
+	if(PRINT == 0 || PRINT ==3 )
 		printf("five\n");
 	return 0;
 
