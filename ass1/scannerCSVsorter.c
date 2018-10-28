@@ -106,10 +106,13 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 		fprintf(stderr,"Cannot open directory: %s\n", strerror (errno));
 		return -1;
 	}
-	while(dirent){
+	int t= 0;
+	while(t==0){
+		printf("dog\n");
 		const char * d_name;
 		dirent = readdir (directory);
 		if (! dirent) {
+			t= 1;
 			break;
 		}
 		d_name = dirent->d_name;
