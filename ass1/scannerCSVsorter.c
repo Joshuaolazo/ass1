@@ -84,12 +84,12 @@ int main(int argc, char *argv[]){
 	int parent_pid= getpid();
 	
 	// Print Statements for output
-	if(PRINT == 1){
+
 		printf("Initial PID: %d\n",parent_pid);
 		char message[]  = "PIDS of all child processes: \0";
 		printf("%s",message);
 
-	}
+	
 	// Start sorting process
 	int i = 0;
 	int * count;
@@ -136,14 +136,16 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 				if(PRINT==0){
 					printf("New directory: %s\n", new_directory);
 				}
-				int child = fork();
+				pid_t child = fork();
 				fflush(stdout);
 				int pid = getpid();
+				int status = 0;
 				if(child ==0){
 					if( PRINT==1)
 						printf("%d,",pid);
 					exit(1);
 				}else{
+					while ((wpid = wait(&status)) > 0);
 					if(PRINT == 0)
 						printf("Count is: %d",*count);
 					*count= *count +1;
@@ -153,14 +155,17 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 			}
 			
 		}else{
-			int child = fork();
+			pid_t child = fork();
 			fflush(stdout);
 			int pid = getpid();
+			int status = 0;
+			pid_t child_pid, wpid;
 			if(child ==0){
 				if( PRINT==1)
 					printf("%d,",pid);
 				exit(1);
 			}else{
+				while ((wpid = wait(&status)) > 0);
 				if(PRINT == 0)
 					printf("Count is: %d",*count);
 				*count = *count +1 ;
