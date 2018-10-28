@@ -20,7 +20,7 @@ Notes
 			A. 		Assume pattern of -c -d -o
 
 2. Go to directory (TODO)
-	a. Call method to see if file is directory (TODO)
+	a. Call method to see if file is directory (TODO)??
 
 
 3. Open Directory/files (Almost Done)

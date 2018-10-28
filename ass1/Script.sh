@@ -7,4 +7,4 @@
 #  Copyright © 2018 Joshua Olazo. All rights reserved.
 
 
-cat movie_metadata.csv | ./simpleCSVsorter -c movie_title > sortedmovies.csv
+make
