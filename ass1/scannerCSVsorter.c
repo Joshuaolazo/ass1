@@ -98,7 +98,7 @@ int main(int argc, char *argv[]){
 
 int directory_crawler(char * sorting_directory){
 	DIR *directory;
-	struct dirent *dirent;
+	struct dirent *dirent = NULL;
 	if( strlen(sorting_directory) == 0){
 		sorting_directory =".";
 	}
@@ -212,7 +212,7 @@ return -2;
 char end[5] = "";
 int z=0;
 int h=0;
-for(z=strlen(ffile)-4;z<strlen(ffile);z++){
+for(z=(int)strlen(ffile)-4;z< (int)strlen(ffile);z++){
 end[h]=ffile[z];
 h++;
 }
@@ -281,7 +281,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 	int comma = 0; //first comma the relevant data is on
 	int commamax = 0;
 	char *found = (char*)malloc(sizeof(char)*strlen(front->data));
-	char *found1= (char*)malloc(sizeof(char)*strlen(front->data));
+	//char *found1= (char*)malloc(sizeof(char)*strlen(front->data));
 	
 	int notfound= 1;
 	if(strstr(front->data,argv))
@@ -313,11 +313,11 @@ while((getline(&buffer, &len, fp)!=-1)){
 	temp1 = front;
 	char dumbo;
 		int titlename = 0;
-		int koo = 0;
+		//int koo = 0;
 	int i;
 	int u;
 	int fakecommas;
-	int commacomma;
+	//int commacomma;
 	int commacheck;
 	int totalfakes;
 	while(temp1!=NULL){
@@ -329,7 +329,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 		strcpy(copycopy, temp1->data);
 		
 	
-		int stupid = strlen(copy);
+		int stupid = (int) strlen(copy);
 		commacheck = 0;
 		fakecommas = 0;
 		totalfakes = 0;

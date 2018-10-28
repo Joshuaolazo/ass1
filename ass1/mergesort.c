@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "scannerCSVsorter.h"
+#include <ctype.h>
+#include "ScannerCSVsorter.h"
 
 void mergesorter(Node** front) {
 	Node* one;
@@ -30,7 +31,7 @@ Node* merge(Node* one,  Node* two) {
 		return one;
 	
 	//fix this later
-	if((isdigit(one->cat[0])||one->cat[0]=='-')&&isdigit(two->cat[0])||two->cat[0]=='-'){
+	if((isdigit(one->cat[0])||one->cat[0]=='-')&& (isdigit(two->cat[0])||two->cat[0]=='-')){
 		double aa, bb;
 		sscanf(one->cat, "%lf", &aa);
 		sscanf(two->cat, "%lf", &bb);
