@@ -32,7 +32,7 @@
       </PathRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-c hi"
+            argument = "-c movie_title"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

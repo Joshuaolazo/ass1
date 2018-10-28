@@ -12,11 +12,10 @@
 #include "ScannerCSVsorter.h"
 
 
-int PRINT = 0;
+int PRINT = 2;
 int PROCESSES = 1;
 
 int main(int argc, char *argv[]){
-	printf("PRINT is: %d", PRINT);
 	// Check for good arguments example below
 	// ./sorter -c movie_title -d thisdir -o thatdir
 	
@@ -85,8 +84,10 @@ int main(int argc, char *argv[]){
 	int parent_pid= getpid();
 	
 	// Print Statements for output
-	printf("Initial PID: %d\n",parent_pid);
-	printf("PIDS of all child processes: ");
+	if(PRINT == 1){
+		printf("Initial PID: %d\n",parent_pid);
+		printf("PIDS of all child processes: ");
+	}
 	// Start sorting process
 	int  x = directory_crawler(sorting_directory, sorting_column, output_directory);
 	printf("\nTotal number of processes: %d\n", PROCESSES);
@@ -135,7 +136,7 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 				int pid = getpid();
 				if(child ==0){
 					PROCESSES++;
-					if( PRINT>0)
+					if( PRINT==1)
 						printf("%d,",pid);
 					exit(1);
 				}else{
@@ -145,24 +146,16 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 			}
 			
 		}else{
-			int directorylen= (int) strlen(sorting_directory);
-			int d_namelen= (int) strlen(d_name);
-			char* full = malloc(directorylen+d_namelen+1);
-			strcpy(full, sorting_directory);
-			strcat(full, d_name);
-			if(PRINT==0){
-				printf("File is : %s\n", full);
-			}
 			int child = fork();
 			fflush(stdout);
 			int pid = getpid();
 			if(child ==0){
 				PROCESSES++;
-				if( PRINT>0)
+				if( PRINT==1)
 					printf("%d,",pid);
 				exit(1);
 			}else{
-				sortCSV(sorting_column, full, output_directory);
+				sortCSV(sorting_column,(char*) d_name, output_directory, sorting_directory);
 			}
 			
 		}
@@ -171,24 +164,33 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 }
 
 //Where argv is what we're sorting by , file, output directory
-int sortCSV(char *argv, char* ffile, char* ddir){
+int sortCSV(char *argv, char* ffile, char* ddir, char* idir){
+	if(PRINT == 2){
+		printf("File is : %s\n", ffile);
+		printf("idir is  : %s\n", idir);
+	}
+	//file + directory
+	char * fffile;
+	fffile = malloc(sizeof(char)*(strlen(idir) + strlen(ffile)));
 	
-	/*	error checks from PA0	
-	if(argc!=3){
-	fprintf(stderr, "%s\n","Error: Does not have 3 parameters.");
-	return -1;
+	
+	//Checking directory
+	struct stat stt = {0};
+	
+	//Appends idir to beginning of ffile name if input directory exists
+	if(stat(idir, &stt)!= -1){
+		strcpy(fffile,idir);
+		strcat(fffile,ffile);
 	}
-	if(strcmp((argv[1]),"-c")!=0){
-	fprintf(stderr, "%s\n","Error: No -c argument.");
-	return -1;
-	}
-	*/
-
-//check if file exists
+	else
+		strcpy(fffile,ffile);
+	
+	
+	//check if file exists
 
 
 FILE *fp;
-fp = fopen(ffile,"r"); 
+fp = fopen(fffile,"r");
 
 if(fp==NULL){
 	printf("DNExist\n");
@@ -197,17 +199,6 @@ return -1;
 }else{
 	printf("open success\n");
 }
-
-/*
-//checks if directory
-DIR* directory = opendir(ffile);
-if(directory!=NULL){
-closedir(directory);
-//isDirectory
-return -2;
-}
-
-*/
 
 //check last 4 letters .csv
 //check if extension is csv file
@@ -469,92 +460,4 @@ while((getline(&buffer, &len, fp)!=-1)){
 	fclose(fp);
 	return 0;
 
-
-
 }
-
-
-/* you fool
-
-int potato(int argc, char **argv){
-	//size 3 5 or 7 because one mandatory flag and 2 optional
-	if(argc!=7||argc!=5||argc!=3){
-	fprintf(stderr, "%s\n", "Does not have correct number of arguments");
-	return -1;
-	}
-	
-	if(strcmp((argv[1]),"-c")!=0){
-	fprintf(stderr, "%s\n","Error: No -c argument.");
-	return -1;
-	}
-	
-	
-	if(strcmp((argv[3]),"-d")==0){
-	//check to see if argv[4] is valid directory
-	
-	//if not
-	fprintf(stderr, "%s\n", "Directory in argv[4] not found");
-		//otherwise
-	//search from this directory @ argv[4]
-	}
-	else {
-	//search current directory
-	}
-	
-	
-	if(strcmp((argv[5]),"-o")==0||strcmp((argv[3]),"-o")==0){
-		
-		if(strcmp((argv[3]),"-o")==0)
-		//Check to see if argv[4] is valid directory
-		
-		//if not
-		fprintf(stderr, "%s\n", "Directory in argv[4] not found");
-		//otherwise
-	// output to this directory argv[4]
-	
-		if(strcmp((argv[5]),"-o")==0)
-	//Check to see if argv[6] is valid directory
-	
-	//if not
-	fprintf(stderr, "%s\n", "Directory in argv[6] not found");
-		//otherwise
-	// output to this directory argv[6]
-	]
-	else{
-	//Output same directory as source file
-	}
-	
-	
-	
-
-return 0;
-}
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
