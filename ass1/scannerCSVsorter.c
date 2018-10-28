@@ -194,6 +194,8 @@ if(fp==NULL){
 	printf("DNExist\n");
 //fileDoesNotExist
 return -1;
+}else{
+	printf("open success\n");
 }
 
 /*
@@ -228,8 +230,7 @@ return -1;
 
 //Therefore we know we are working with csv file which exists
 
-
-char * buffer;
+char * buffer = (char *)malloc(sizeof(char)*5000);
 size_t len = 0;
 Node *front=NULL;
 Node * ptr = NULL;
