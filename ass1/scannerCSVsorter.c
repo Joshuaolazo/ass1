@@ -12,8 +12,7 @@
 #include "scannerCSVsorter.h"
 
 
-int PRINT = 3;
-int PROCESSES = 1;
+int PRINT = 1;
 
 int main(int argc, char *argv[]){
 	// Check for good arguments example below
@@ -106,10 +105,6 @@ int main(int argc, char *argv[]){
 int directory_crawler(char * sorting_directory,char * sorting_column, char * output_directory, int * count){
 	DIR *directory;
 	struct dirent *dirent;
-	if( strlen(sorting_directory) == 0){
-		sorting_directory =".";
-	}
-	
 	directory = opendir(sorting_directory);
 	if( !directory){
 		fprintf(stderr,"Cannot open directory: %s\n", strerror (errno));
@@ -148,7 +143,6 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 				if(child ==0){
 					if( PRINT==1 ||PRINT == 3){
 						printf("%d,",pid);
-						printf ("%d\n",  *count);
 					}
 					exit(1);
 				}else{
@@ -162,7 +156,6 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 			}
 			
 		}else{
-			printf("file\n");
 			pid_t child = fork();
 			fflush(stdout);
 			int pid = getpid();
@@ -170,7 +163,6 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 			if(child ==0){
 				if( PRINT==1 ||PRINT == 3){
 					printf("%d,",pid);
-					printf ("%d\n",  *count);
 				}
 				exit(1);
 			}else{
@@ -216,7 +208,6 @@ int sortCSV(char *argv, char* ffile, char* ddir, char* idir){
 	}
 	
 	//check if file exists
-	printf("seide\n");
 	if(PRINT ==3){
 		printf("FILE PATH is: %s\n", fffile);
 	}
@@ -224,9 +215,9 @@ FILE *fp;
 fp = fopen(fffile,"r");
 
 if(fp==NULL){
-	printf("DNExist\n");
-//fileDoesNotExist
-return -1;
+	fprintf(stderr,"File DNExist\n");
+	//fileDoesNotExist
+	return -1;
 }else{
 	//printf("open success\n");
 	
@@ -439,9 +430,8 @@ while((getline(&buffer, &len, fp)!=-1)){
 		
 		if(commacheck-totalfakes!=commamax-1){
 			//ignore formatted incorrectly
-			//fprintf(stderr, "%s\n","Error: Bad formatting with commas.");
+			fprintf(stderr, "%s\n","Error: Inconsistent commas between rows.");
 			fclose(fp);
-			printf("two\n");
 			return -1;
 		}
 		//THERE WERE COMMAS IN PARENTHESES
@@ -505,7 +495,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 		//mkdir(ddir, 0700);
 		//fclose(fp);
 		//if(PRINT == 0)
-		fprintf(stderr, "%s\n","Error: Invalid Directory.");
+		fprintf(stderr, "%s\n","Error: Invalid Output Directory.");
 		return(-1);
 	}
 	
