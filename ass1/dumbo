@@ -1,0 +1,99 @@
+
+		int stupid = (int) strlen(copy);
+		commacheck = 0;
+		fakecommas = 0;
+		totalfakes = 0;
+		titlename=0;
+		firsty = 0;
+		fraud = 0;
+		quotes=0;
+		openingcomma=0;
+		closingcomma=0;
+		//finding fake commas per category
+		
+		for(i=0;i<stupid;i++){
+			dumbo=copy[i];
+			
+			if(dumbo==',')
+			commacheck++;
+				
+			if(dumbo=='"'){
+			titlename++;
+			titlename=titlename%2;
+		}
+		if(titlename==1&&dumbo==',')
+			fakecommas++;
+			
+			//if comma-- ==commacheck - fakecommas take keep both indices and take string between them to use in cat
+			//if I am 1 commas away I will 
+			
+			
+			if((commacheck-fakecommas)==comma&&firsty==0){
+			firsty=1;
+			}
+			
+			if(firsty==1&&dumbo=='"'&&quotes==0){
+				printf("opening:%d\t",i);
+				openingcomma = i;	
+				quotes=1;		
+			}
+			if(quotes>0)
+			quotes++;
+			
+			if(quotes>2&&dumbo=='"')
+			fraud=1;
+			
+			
+		if(fraud==1){
+			printf("closing: %d\n",i);
+			closingcomma=i;
+		break;
+	}
+	
+	
+		}
+		// finding fake commas in total
+		titlename=0;
+		commacheck=0;
+		for(i=0;i<stupid;i++){
+			dumbo=copy[i];
+			
+			if(dumbo==',')
+			commacheck++;
+			
+			if(dumbo=='"'){
+			titlename++;
+			titlename=titlename%2;
+		}
+		if(titlename==1&&dumbo==',')
+			totalfakes++;
+
+		}
+		//printf("%d-%d-%d \n", commacheck,totalfakes,commamax);
+		
+		if(commacheck-totalfakes!=commamax-1){
+			//ignore formatted incorrectly
+			//fprintf(stderr, "%s\n","Error: Bad formatting with commas.");
+			fclose(fp);
+			printf("two\n");
+			return -1;
+		}
+		//THERE WERE COMMAS IN PARENTHESES
+		u=0;
+		
+		if(fraud==1){
+			printf("fraud\n");
+			for(i=openingcomma+1;i<=closingcomma-1;i++){
+			find[u]=copy[i];
+			u++;
+			}
+			printf("%s\n",find);
+		}		 
+		else{ 
+		 
+		for(u=0;u<=(comma+fakecommas);u++){
+				
+			find = strsep(&copy, ",");
+		}
+		}
+		int k;
