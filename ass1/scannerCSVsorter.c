@@ -208,7 +208,7 @@ int sortCSV(char *argv, char* ffile, char* ddir, char* idir){
 	}
 	
 	//check if file exists
-	if(PRINT ==3){
+	if(PRINT ==2){
 		printf("FILE PATH is: %s\n", fffile);
 	}
 FILE *fp;
@@ -259,7 +259,6 @@ long llength = 0;
 	
 while((getline(&buffer, &len, fp)!=-1)){
 	llength++;
-	
 	if(front == NULL){
 		Node * current = (Node*)malloc(sizeof(Node));
 		char * copystring = (char *)malloc(sizeof(char)*strlen(buffer));
@@ -271,22 +270,36 @@ while((getline(&buffer, &len, fp)!=-1)){
 
 	}else{
 		Node * current = (Node*)malloc(sizeof(Node));
-		char * copystring = (char *)malloc(sizeof(char)*strlen(buffer));
+		char * copystring = (char *)malloc(sizeof(char)*strlen(buffer)+3);
 		strcpy(copystring, buffer);
 		//for last input which ends in EOF
 		if(copystring[strlen(copystring)-1]!='\n')
-		copystring[strlen(copystring)] = '\n';
+			copystring[strlen(copystring)] = '\n';
+		copystring[strlen(copystring)] = '\0';
 		current->data = copystring;
 		ptr->next = current;
 		ptr = ptr->next;
 		
 	}
 }
+	// fix length kill extra
+	long llength1 =llength;
+	Node *extra = front;
+	Node *t;
+	//printf("length: %ld\n",llength1);
+	while (llength1>0){
+		t=extra;
+		extra = extra->next;
+		llength1--;
+		//printf("length: %ld\n",llength1);
+		if( llength1==0){
+			t->next=NULL;
+			break;
+		}
+	}
 
+	
 
-	//printf("Buffer is: %s", buffer);
-	
-	
 	char * ind = (char*)malloc(sizeof(char)*strlen(front->data));
 	char * potato = (char*)malloc(sizeof(char)*strlen(front->data));
 	char * potato1 = (char*)malloc(sizeof(char)*strlen(front->data));
@@ -344,15 +357,25 @@ while((getline(&buffer, &len, fp)!=-1)){
 	//int commacomma;
 	int commacheck;
 	int totalfakes;
-	
+	//long llength2 =llength;
 	while(temp1!=NULL){
-		printf("Temp data is: %s", temp1->data);
-		printf("Size of malloc is: %lu",sizeof(char)*strlen(temp1->data));
-		char *find = (char*)malloc(sizeof(char)*strlen(temp1->data));
 		
-		printf("one\n");
+		if(temp1->data == NULL){
+			fprintf(stderr,"blank column\n");
+			return -1;
+		}
+		/*
+		printf("start one\n");
+	
+		printf("start two\n");
+		printf("Temp data is: %s", temp1->data);
+		printf("Size of malloc is: %lu\n",sizeof(char)*strlen(temp1->data));
+		
+		*/
+		char *find = (char*)malloc(sizeof(char)*strlen(temp1->data));
 		char * copy = (char *)malloc(sizeof(char)*strlen(temp1->data));
-		printf("two\n");
+		
+		
 		strcpy(copy, temp1->data);
 		
 	
@@ -367,6 +390,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 		int openingcomma=0;
 		int closingcomma=0;
 		//finding fake commas per category
+		
 		
 		for(i=0;i<stupid;i++){
 			dumbo=copy[i];
@@ -413,6 +437,8 @@ while((getline(&buffer, &len, fp)!=-1)){
 			
 			
 		}
+	
+		
 		// finding fake commas in total
 		titlename=0;
 		commacheck=0;
@@ -431,6 +457,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 			
 		}
 		//printf("%d-%d-%d \n", commacheck,totalfakes,commamax);
+		
 		
 		if(commacheck-totalfakes!=commamax-1){
 			//ignore formatted incorrectly
@@ -478,12 +505,14 @@ while((getline(&buffer, &len, fp)!=-1)){
 			find[strlen(find)-1]='\0';
 		}
 		temp1->cat=find;
+		//printf("end one\n");
 		
-
 		temp1=temp1->next;
-
+		//llength2--;
+		
+		//printf("end two\n");
 	}
-	
+	//printf("out\n");
 	//exit
 	if(notfound==1){
 		//ignore
@@ -493,6 +522,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 			printf("three\n");
 		return -1;
 	}
+	
 	//Checking directory
 	struct stat st = {0};
 	
@@ -516,14 +546,18 @@ while((getline(&buffer, &len, fp)!=-1)){
 	 
 	char* newFileName = (char*) malloc((strlen(argv)+strlen(fffile)+ 10)*sizeof(char));
 	if(ddir!=NULL){
-		printf("ddir is not null\n");
-		printf("ddir is: %s\n", ddir);
-		printf("idir is: %s\n", idir);
+		if(PRINT!= 1){
+			printf("ddir is not null\n");
+			printf("ddir is: %s\n", ddir);
+			printf("idir is: %s\n", idir);
+		}
 		strcpy(newFileName,ddir);
 		strcat(newFileName,fileStub);
 	}else{
-		printf("ddir is: %s\n", ddir);
-		printf("idir is: %s\n", idir);
+		if(PRINT!= 1){
+			printf("ddir is: %s\n", ddir);
+			printf("idir is: %s\n", idir);
+		}
 		strcpy(newFileName,idir);
 		strcat(newFileName,fileStub);
 	}
@@ -540,22 +574,29 @@ while((getline(&buffer, &len, fp)!=-1)){
 	mergesorter(&(front->next));
 	
 	Node * temp = front;
+	//long llength3 =llength;
 	while (temp!=NULL){
 		fprintf(new,"%s", temp->data);
 		temp = temp->next;
+		//llength3--;
 	}
 	
 	fclose(new);
 	if(PRINT == 0 || PRINT ==3 )
 		printf("five\n");
-	
-
+	/*
+	free(potato);
+	free(potato1);
+	free(copystring1);
+	free(copystring2);
+	free(found);
 	free(fileStub);
 	free(newFileName);
 	free(buffer);
 	free(temp1);
 	free(temp);
 	free(front);
+	 */
 	return 0;
 
 }
