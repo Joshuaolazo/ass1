@@ -15,7 +15,7 @@
 int directory_crawler(char*);
 int dummy(void);
 
-int PRINT = 1;
+int PRINT = 0;
 int PROCESSES = 1;
 
 int main(int argc, char *argv[]){
@@ -98,13 +98,12 @@ int main(int argc, char *argv[]){
 
 int directory_crawler(char * sorting_directory){
 	DIR *directory;
-	struct dirent *dirent = NULL;
+	struct dirent *dirent;
 	if( strlen(sorting_directory) == 0){
 		sorting_directory =".";
 	}
 	
 	directory = opendir(sorting_directory);
-	
 	if( !directory){
 		fprintf(stderr,"Cannot open directory: %s\n", strerror (errno));
 		return -1;
@@ -166,10 +165,6 @@ int directory_crawler(char * sorting_directory){
 	return 0;
 }
 
-int dummy(){
-	//printf("Not a directory\n");
-	return 0;
-}
 //Where argv is what we're sorting by , file, output directory
 int sortCSV(char *argv, char* ffile, char* ddir){
 	

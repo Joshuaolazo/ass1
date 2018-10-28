@@ -7,3 +7,5 @@ sorter: scannerCSVsorter.c mergesort.c
 
 clean:
 	rm -rf sorter
+	rm -rf scannerCSVsorter.o
+	rm -rf mergesort.o
