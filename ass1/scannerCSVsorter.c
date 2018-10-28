@@ -9,7 +9,7 @@
 #include <ctype.h>
 #include <errno.h>
 #include <sys/mman.h>
-#include "ScannerCSVsorter.h"
+#include "scannerCSVsorter.h"
 
 
 int PRINT = 0;
@@ -135,7 +135,6 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 				fflush(stdout);
 				int pid = getpid();
 				if(child ==0){
-					PROCESSES++;
 					if( PRINT==1)
 						printf("%d,",pid);
 					exit(1);
@@ -150,7 +149,6 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 			fflush(stdout);
 			int pid = getpid();
 			if(child ==0){
-				PROCESSES++;
 				if( PRINT==1)
 					printf("%d,",pid);
 				exit(1);
@@ -327,10 +325,8 @@ while((getline(&buffer, &len, fp)!=-1)){
 	while(temp1!=NULL){
 		char *find = (char*)malloc(sizeof(char)*strlen(temp1->data));
 		char * copy = (char *)malloc(sizeof(char)*strlen(temp1->data));
-		char * copycopy = (char *)malloc(sizeof(char)*strlen(temp1->data));
 		
 		strcpy(copy, temp1->data);
-		strcpy(copycopy, temp1->data);
 		
 	
 		int stupid = (int) strlen(copy);
@@ -373,21 +369,25 @@ while((getline(&buffer, &len, fp)!=-1)){
 			totalfakes++;
 
 		}
-		//printf("%d-%d-%d \n", commacheck,totalfakes,commamax);
-		/*
+		
+		
 		if(commacheck-totalfakes!=commamax-1){
+			printf("%d-%d-%d \n", commacheck,totalfakes,commamax);
+			printf("%s\n", copy);
+			printf("orginal %s\n", temp1->data);
 			//ignore formatted incorrectly
 			//fprintf(stderr, "%s\n","Error: Bad formatting with commas.");
+			/*
 			fclose(fp);
 			printf("two\n");
 			return -1;
+			 */
 		}
-		 */
+		
 		for(u=0;u<=(comma+fakecommas);u++){
 				
 			find = strsep(&copy, ",");
 		}
-	
 		int k;
 		
 		while(find[0]==' '){

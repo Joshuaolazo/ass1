@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "ScannerCSVsorter.h"
+#include "scannerCSVsorter.h"
 
 void mergesorter(Node** front) {
 	Node* one;
@@ -32,7 +32,6 @@ Node* merge(Node* one,  Node* two) {
 	
 	//fix this later
 	int numcheck= isNumeric(one->data);
-	printf("NUMCHECK is: %d", numcheck);
 	if(numcheck == 1){
 		double aa, bb;
 		sscanf(one->cat, "%lf", &aa);

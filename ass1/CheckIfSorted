@@ -1,6 +1,0 @@
-// checks to see if ffile is already sorted or not
-char* sortedd = malloc(sizeof(char)*10);
-sortedd = "-sorted-";
-if(strstr(ffile,sortedd)!=NULL){
-	return -1;
-  }
