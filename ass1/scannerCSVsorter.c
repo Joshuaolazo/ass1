@@ -200,7 +200,7 @@ int sortCSV(char *argv, char* ffile, char* ddir, char* idir){
 	
 	//file + directory
 	char * fffile;
-	fffile = (char*) malloc(sizeof(char*)*(strlen(idir) + strlen(ffile)));
+	fffile = (char*) malloc(sizeof(char*) * (strlen(idir) + strlen(ffile)) );
 	
 	
 	//Checking directory
@@ -270,7 +270,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 
 	if(front == NULL){
 		Node * current = (Node*)malloc(sizeof(Node));
-		char * copystring = (char *)malloc(sizeof(char)*strlen(buffer));
+		char * copystring = (char *)malloc(sizeof(char*)*strlen(buffer));
 		strcpy(copystring, buffer);
 		current->data = copystring;
 		current->next = NULL;
@@ -279,7 +279,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 
 	}else{
 		Node * current = (Node*)malloc(sizeof(Node));
-		char * copystring = (char *)malloc(sizeof(char)*strlen(buffer));
+		char * copystring = (char *)malloc(sizeof(char*)*strlen(buffer));
 		strcpy(copystring, buffer);
 		//for last input which ends in EOF
 		if(copystring[strlen(copystring)-1]!='\n')
@@ -297,15 +297,15 @@ while((getline(&buffer, &len, fp)!=-1)){
 
 	
 	
-	char * ind = (char*)malloc(sizeof(char)*strlen(front->data));
-	char * potato = (char*)malloc(sizeof(char)*strlen(front->data));
-	char * potato1 = (char*)malloc(sizeof(char)*strlen(front->data));
+	char * ind = (char*)malloc(sizeof(char*)*strlen(front->data));
+	char * potato = (char*)malloc(sizeof(char*)*strlen(front->data));
+	char * potato1 = (char*)malloc(sizeof(char*)*strlen(front->data));
 	
 	ind = argv;				//index to sort by
 	
-	char * copystring1 = (char *)malloc(sizeof(char)*strlen(front->data));
+	char * copystring1 = (char *)malloc(sizeof(char*)*strlen(front->data));
 	strcpy(copystring1, front->data);
-	char * copystring2 = (char *)malloc(sizeof(char)*strlen(front->data));
+	char * copystring2 = (char *)malloc(sizeof(char*)*strlen(front->data));
 	strcpy(copystring2, front->data);
 	potato = copystring1;		//first line of categories
 	potato1 = copystring2;
@@ -314,7 +314,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 	//split commas
 	int comma = 0; //first comma the relevant data is on
 	int commamax = 0;
-	char *found = (char*)malloc(sizeof(char)*strlen(front->data));
+	char *found = (char*)malloc(sizeof(char*)*strlen(front->data));
 	//char *found1= (char*)malloc(sizeof(char)*strlen(front->data));
 	
 	int notfound= 1;
@@ -355,8 +355,8 @@ while((getline(&buffer, &len, fp)!=-1)){
 	int commacheck;
 	int totalfakes;
 	while(temp1!=NULL){
-		char *find = (char*)malloc(sizeof(char)*strlen(temp1->data));
-		char * copy = (char *)malloc(sizeof(char)*strlen(temp1->data));
+		char *find = (char*)malloc(sizeof(char*)*strlen(temp1->data));
+		char * copy = (char *)malloc(sizeof(char*)*strlen(temp1->data));
 		
 		strcpy(copy, temp1->data);
 		
@@ -513,13 +513,13 @@ while((getline(&buffer, &len, fp)!=-1)){
 	
 	//creating new CSV file 
 	
-	char* fileStub = (char*)malloc(strlen(ffile)*sizeof(char));
+	char* fileStub = (char*)malloc(strlen(ffile)*sizeof(char*));
 	strcpy(fileStub,ffile);
 	
 	for(i=0;i<4;i++)
 	fileStub[strlen(fileStub)-1] = '\0';
 	 
-	char* newFileName = malloc((strlen(argv)+strlen(ffile))*sizeof(char));
+	char* newFileName = (char*) malloc((strlen(argv)+strlen(fffile)+ 10)*sizeof(char*));
 	if(ddir!=NULL){
 		printf("ddir is not null\n");
 		printf("ddir is: %s\n", ddir);
