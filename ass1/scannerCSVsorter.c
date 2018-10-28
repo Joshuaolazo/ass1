@@ -108,7 +108,7 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 	}
 	int t= 0;
 	while(t==0){
-		printf("dog\n");
+
 		const char * d_name;
 		dirent = readdir (directory);
 		if (! dirent) {
@@ -216,16 +216,18 @@ for(z=(int)strlen(ffile)-4;z< (int)strlen(ffile);z++){
 end[h]=ffile[z];
 h++;
 }
-printf("%s  %s\n",end,ffile);
 if(strcmp(end,".csv")!=0){
 	printf("notcsv\n");
 fclose(fp);
 return -1;
+}else{
+	printf("File is a csv\n");
 }
 
 //not CSV files...
 
 //Therefore we know we are working with csv file which exists
+
 
 char * buffer;
 size_t len = 0;
@@ -234,6 +236,7 @@ Node * ptr = NULL;
 long llength = 0;
 while((getline(&buffer, &len, fp)!=-1)){
 	llength++;
+
 	if(front == NULL){
 		Node * current = (Node*)malloc(sizeof(Node));
 		char * copystring = (char *)malloc(sizeof(char)*strlen(buffer));
@@ -418,7 +421,9 @@ while((getline(&buffer, &len, fp)!=-1)){
 	
 	//Creates directory if it DNE
 	if(stat(ddir, &st)== -1){
-	mkdir(ddir, 0700);	
+		//mkdir(ddir, 0700);
+		fclose(fp);
+		return(-1);
 	}
 	
 	
