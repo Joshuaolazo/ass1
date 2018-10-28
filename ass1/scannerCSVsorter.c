@@ -12,7 +12,7 @@
 #include "ScannerCSVsorter.h"
 
 
-int PRINT = 2;
+int PRINT = 0;
 int PROCESSES = 1;
 
 int main(int argc, char *argv[]){
@@ -165,7 +165,13 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 
 //Where argv is what we're sorting by , file, output directory
 int sortCSV(char *argv, char* ffile, char* ddir, char* idir){
-
+	// checks to see if ffile is already sorted or not
+	char* sortedd = (char*) malloc(sizeof(char*)*10);
+	sortedd = "-sorted-";
+	if(strstr(ffile,sortedd)!=NULL){
+		return -1;
+	}
+	
 	//file + directory
 	char * fffile;
 	fffile = malloc(sizeof(char)*(strlen(idir) + strlen(ffile)));
@@ -213,7 +219,7 @@ if(strcmp(end,".csv")!=0){
 	printf("one\n");
 	return -1;
 }else{
-	if(PRINT == 2){
+	if(PRINT == 2 || PRINT == 0){
 		printf("File is a csv\n");
 		printf("File is : %s\n", ffile);
 		printf("idir is  : %s\n", idir);
@@ -420,9 +426,10 @@ while((getline(&buffer, &len, fp)!=-1)){
 	//Creates directory if it DNE
 	if(stat(ddir, &st)== -1){
 		//mkdir(ddir, 0700);
-		fclose(fp);
-		printf("four\n");
-		return(-1);
+		//fclose(fp);
+		//printf("four\n");
+		//return(-1);
+		ddir=NULL;
 	}
 	
 	
@@ -434,59 +441,33 @@ while((getline(&buffer, &len, fp)!=-1)){
 	for(i=0;i<4;i++)
 	fileStub[strlen(fileStub)-1] = '\0';
 	 
-	//printf("fuck you bitch\n");
 	char* newFileName = malloc((strlen(argv)+strlen(ffile))*sizeof(char));
-	if(ddir!=NULL)
-	strcpy(newFileName,ddir);
-	
-	strcat(newFileName,fileStub);
+	if(ddir!=NULL){
+		strcpy(newFileName,ddir);
+		strcat(newFileName,fileStub);
+	}else{
+		strcpy(newFileName,fileStub);
+	}
 	strcat(newFileName,"-sorted-");
 	strcat(newFileName,argv);
 	strcat(newFileName,".csv");
 	printf("%s\n",newFileName);
 
-	//FILE *fd;
-	int fz = open(newFileName,O_WRONLY | O_CREAT, 0644);
-	//fd=fopen(newFileName,"w");
-	dup2(fz,1);
+	fclose(fp);
 	
+	FILE *new;
+	new = fopen(newFileName, "w+");
 	mergesorter(&(front->next));
-	
 	
 	Node * temp = front;
 	while (temp!=NULL){
-		
-		printf("%s", temp->data);
+		fprintf(new,"%s", temp->data);
 		temp = temp->next;
 	}
 	
-
-	
-	
-	
-	fclose(fp);
+	fclose(new);
 	printf("five\n");
 	return 0;
 
-}
-//checks if string is numeric
-//returns 1 if numeric, 0 if non-numeric
-int isNumeric(char* data){
-	int i = 0;
-	int isNum = 1; //set to 0 if not numeric
-	int period = 0; //shouldnt be more than one period
-	int length = (int)(strlen(data));
-	for(i=0; i<length;i++){
-		char c = data[i];
-		if(c < '0' || c > '9'){
-			if(c == '.')
-				period++;
-			else
-				isNum = 0;
-			if(period > 1)
-				isNum = 0;
-		}
-	}
-	return isNum;
 }
 
