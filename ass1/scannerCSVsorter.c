@@ -501,13 +501,12 @@ while((getline(&buffer, &len, fp)!=-1)){
 	struct stat st = {0};
 	
 	//Creates directory if it DNE
-	if(stat(ddir, &st)== -1){
+	if(ddir!=NULL&&stat(ddir, &st)== -1){
 		//mkdir(ddir, 0700);
 		//fclose(fp);
 		//if(PRINT == 0)
-		//	printf("four\n");
-		//return(-1);
-		ddir=NULL;
+		fprintf(stderr, "%s\n","Error: Invalid Directory.");
+		return(-1);
 	}
 	
 	
