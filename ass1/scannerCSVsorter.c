@@ -12,13 +12,11 @@
 #include "ScannerCSVsorter.h"
 
 
-int directory_crawler(char*);
-int dummy(void);
-
 int PRINT = 0;
 int PROCESSES = 1;
 
 int main(int argc, char *argv[]){
+	printf("PRINT is: %d", PRINT);
 	// Check for good arguments example below
 	// ./sorter -c movie_title -d thisdir -o thatdir
 	
@@ -90,13 +88,13 @@ int main(int argc, char *argv[]){
 	printf("Initial PID: %d\n",parent_pid);
 	printf("PIDS of all child processes: ");
 	// Start sorting process
-	int  x = directory_crawler(sorting_directory);
+	int  x = directory_crawler(sorting_directory, sorting_column, output_directory);
 	printf("\nTotal number of processes: %d\n", PROCESSES);
 	return x;
 }
 
 
-int directory_crawler(char * sorting_directory){
+int directory_crawler(char * sorting_directory,char * sorting_column, char * output_directory){
 	DIR *directory;
 	struct dirent *dirent;
 	if( strlen(sorting_directory) == 0){
@@ -112,19 +110,14 @@ int directory_crawler(char * sorting_directory){
 		const char * d_name;
 		dirent = readdir (directory);
 		if (! dirent) {
-			/* There are no more entries in this directory, so break
-			 out of the while loop. */
 			break;
 		}
 		d_name = dirent->d_name;
-		/* Print the name of the file and directory. */
 		if(PRINT==0){
 			printf ("%s\n",  d_name);
 		}
 		if (dirent->d_type & DT_DIR) {
-			// Check that the directory is not "d" or d's parent.
 			if (strcmp (d_name, "..") != 0 && strcmp (d_name, ".") != 0) {
-				// Recursively call "list_dir" with the new path.
 				int directorylen= (int) strlen(sorting_directory);
 				int d_namelen= (int) strlen(d_name);
 				char* new_directory = malloc(directorylen+d_namelen+1);
@@ -142,22 +135,31 @@ int directory_crawler(char * sorting_directory){
 					if( PRINT>0)
 						printf("%d,",pid);
 					exit(1);
+				}else{
+					directory_crawler(new_directory,sorting_column,sorting_directory);
 				}
-				directory_crawler(new_directory);
 				
 			}
 			
 		}else{
+			int directorylen= (int) strlen(sorting_directory);
+			int d_namelen= (int) strlen(d_name);
+			char* full = malloc(directorylen+d_namelen+1);
+			strcpy(full, sorting_directory);
+			strcat(full, d_name);
+			if(PRINT==0){
+				printf("File is : %s\n", full);
+			}
 			int child = fork();
 			fflush(stdout);
-			int x = dummy();
-			x++;
 			int pid = getpid();
 			if(child ==0){
 				PROCESSES++;
 				if( PRINT>0)
 					printf("%d,",pid);
 				exit(1);
+			}else{
+				sortCSV(sorting_column, full, output_directory);
 			}
 			
 		}
