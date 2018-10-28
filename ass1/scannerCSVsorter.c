@@ -12,7 +12,7 @@
 #include "scannerCSVsorter.h"
 
 
-int PRINT = 0;
+int PRINT = 1;
 int PROCESSES = 1;
 
 int main(int argc, char *argv[]){
@@ -89,13 +89,17 @@ int main(int argc, char *argv[]){
 		printf("PIDS of all child processes: ");
 	}
 	// Start sorting process
-	int  x = directory_crawler(sorting_directory, sorting_column, output_directory);
-	printf("\nTotal number of processes: %d\n", PROCESSES);
+	int i = 0;
+	int * count;
+	count = &i;
+	printf("Count is: %d",*count);
+	int  x = directory_crawler(sorting_directory, sorting_column, output_directory,count);
+	printf("\nTotal number of processes: %d\n", *count);
 	return x;
 }
 
 
-int directory_crawler(char * sorting_directory,char * sorting_column, char * output_directory){
+int directory_crawler(char * sorting_directory,char * sorting_column, char * output_directory, int * count){
 	DIR *directory;
 	struct dirent *dirent;
 	if( strlen(sorting_directory) == 0){
@@ -139,7 +143,10 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 						printf("%d,",pid);
 					exit(1);
 				}else{
-					directory_crawler(new_directory,sorting_column,sorting_directory);
+					if(PRINT == 0)
+						printf("Count is: %d",*count);
+					*count= *count +1;
+					directory_crawler(new_directory,sorting_column,sorting_directory,count);
 				}
 				
 			}
@@ -153,6 +160,9 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 					printf("%d,",pid);
 				exit(1);
 			}else{
+				if(PRINT == 0)
+					printf("Count is: %d",*count);
+				*count = *count +1 ;
 				sortCSV(sorting_column,(char*) d_name, output_directory, sorting_directory);
 			}
 			
@@ -212,9 +222,11 @@ end[h]=ffile[z];
 h++;
 }
 if(strcmp(end,".csv")!=0){
-	printf("notcsv\n");
+	if(PRINT ==0)
+		printf("notcsv\n");
 	fclose(fp);
-	printf("one\n");
+	if(PRINT == 0)
+		printf("one\n");
 	return -1;
 }else{
 	if(PRINT == 2 || PRINT == 0){
@@ -370,20 +382,20 @@ while((getline(&buffer, &len, fp)!=-1)){
 
 		}
 		
-		
+		/*
 		if(commacheck-totalfakes!=commamax-1){
 			printf("%d-%d-%d \n", commacheck,totalfakes,commamax);
 			printf("%s\n", copy);
 			printf("orginal %s\n", temp1->data);
 			//ignore formatted incorrectly
 			//fprintf(stderr, "%s\n","Error: Bad formatting with commas.");
-			/*
+			
 			fclose(fp);
 			printf("two\n");
 			return -1;
-			 */
+			
 		}
-		
+		*/
 		for(u=0;u<=(comma+fakecommas);u++){
 				
 			find = strsep(&copy, ",");
@@ -417,7 +429,8 @@ while((getline(&buffer, &len, fp)!=-1)){
 		//ignore
 		fprintf(stderr, "%s\n","Error: Parameter not found.");
 		fclose(fp);
-		printf("three\n");
+		if(PRINT == 0)
+			printf("three\n");
 		return -1;
 	}
 	//Checking directory
@@ -427,7 +440,8 @@ while((getline(&buffer, &len, fp)!=-1)){
 	if(stat(ddir, &st)== -1){
 		//mkdir(ddir, 0700);
 		//fclose(fp);
-		//printf("four\n");
+		//if(PRINT == 0)
+		//	printf("four\n");
 		//return(-1);
 		ddir=NULL;
 	}
@@ -451,7 +465,8 @@ while((getline(&buffer, &len, fp)!=-1)){
 	strcat(newFileName,"-sorted-");
 	strcat(newFileName,argv);
 	strcat(newFileName,".csv");
-	printf("%s\n",newFileName);
+	if(PRINT== 0)
+		printf("%s\n",newFileName);
 
 	fclose(fp);
 	
@@ -466,7 +481,8 @@ while((getline(&buffer, &len, fp)!=-1)){
 	}
 	
 	fclose(new);
-	printf("five\n");
+	if(PRINT == 0)
+		printf("five\n");
 	return 0;
 
 }

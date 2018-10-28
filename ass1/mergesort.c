@@ -22,7 +22,6 @@ void mergesorter(Node** front) {
 }
 
 Node* merge(Node* one,  Node* two) {
-	//printf("Comparing: %s with %s", one->cat, two->cat );
 	Node* esp = NULL;
 	
 	if (one == NULL)
