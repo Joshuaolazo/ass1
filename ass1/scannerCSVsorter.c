@@ -86,7 +86,9 @@ int main(int argc, char *argv[]){
 	// Print Statements for output
 	if(PRINT == 1){
 		printf("Initial PID: %d\n",parent_pid);
-		printf("PIDS of all child processes: ");
+		char message[]  = "PIDS of all child processes: \0";
+		printf("%s",message);
+
 	}
 	// Start sorting process
 	int i = 0;
