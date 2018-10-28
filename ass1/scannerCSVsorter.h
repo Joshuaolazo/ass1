@@ -9,7 +9,7 @@ typedef struct _Node{
 
 Node* merge(Node* one, Node* two); 
 void half( Node* base, Node** first,  Node** last); 
-void mergesort(Node** front);
+void mergesorter(Node** front);
 
 
 #endif

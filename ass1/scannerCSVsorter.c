@@ -446,7 +446,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 	//fd=fopen(newFileName,"w");
 	dup2(fz,1);
 	
-	mergesort(&(front->next));
+	mergesorter(&(front->next));
 	
 	
 	Node * temp = front;
