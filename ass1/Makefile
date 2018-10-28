@@ -1,11 +1,6 @@
-all: sorter
-
-sorter: scannerCSVsorter.c mergesort.c
-	gcc -c scannerCSVsorter.c
-	gcc -c mergesort.c
-	gcc -Wall -Werror -o sorter scannerCSVsorter.o mergesort.o
-
+all: scannerCSVsorter.c mergesort.o
+	gcc scannerCSVsorter.c mergesort.o -o sorter
+mergesort.o: mergesort.c
+	gcc -c mergesort.c -o mergesort.o
 clean:
-	rm -rf sorter
-	rm -rf scannerCSVsorter.o
-	rm -rf mergesort.o
+	rm -rf sorter mergesort.o

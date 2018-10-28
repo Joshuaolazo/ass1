@@ -469,3 +469,24 @@ while((getline(&buffer, &len, fp)!=-1)){
 	return 0;
 
 }
+//checks if string is numeric
+//returns 1 if numeric, 0 if non-numeric
+int isNumeric(char* data){
+	int i = 0;
+	int isNum = 1; //set to 0 if not numeric
+	int period = 0; //shouldnt be more than one period
+	int length = (int)(strlen(data));
+	for(i=0; i<length;i++){
+		char c = data[i];
+		if(c < '0' || c > '9'){
+			if(c == '.')
+				period++;
+			else
+				isNum = 0;
+			if(period > 1)
+				isNum = 0;
+		}
+	}
+	return isNum;
+}
+

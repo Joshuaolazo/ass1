@@ -52,6 +52,7 @@ Notes
 			A. 		Free before return on error
 3. Sort File (Random Errors but done)
 	a. output with -sorted- (DONE)
+	b. do not repeat sorting
 4. Output into directory (TODO)
 
 
@@ -65,3 +66,4 @@ Notes
 comment out comma check turn back on
 count pids
 output to idir when ddir doesnt exist
+dont repeat sorting

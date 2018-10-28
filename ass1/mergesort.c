@@ -31,7 +31,8 @@ Node* merge(Node* one,  Node* two) {
 		return one;
 	
 	//fix this later
-	if((isdigit(one->cat[0])||one->cat[0]=='-')&& (isdigit(two->cat[0])||two->cat[0]=='-')){
+	int numcheck= isNumeric(one->data);
+	if(numcheck == 1){
 		double aa, bb;
 		sscanf(one->cat, "%lf", &aa);
 		sscanf(two->cat, "%lf", &bb);
