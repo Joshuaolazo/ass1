@@ -92,7 +92,6 @@ int main(int argc, char *argv[]){
 	int i = 0;
 	int * count;
 	count = &i;
-	printf("Count is: %d",*count);
 	int  x = directory_crawler(sorting_directory, sorting_column, output_directory,count);
 	printf("\nTotal number of processes: %d\n", *count);
 	return x;
