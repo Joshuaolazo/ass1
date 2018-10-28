@@ -86,9 +86,13 @@ int main(int argc, char *argv[]){
 			fprintf(stderr,"%s\n","Too many input arguments");
 			return -1;
 	}
+	// Get origninal PID
 	int parent_pid= getpid();
+	
+	// Print Statements for output
 	printf("Initial PID: %d\n",parent_pid);
 	printf("PIDS of all child processes: ");
+	// Start sorting process
 	int  x = directory_crawler(sorting_directory);
 	printf("\nTotal number of processes: %d\n", PROCESSES);
 	return x;
