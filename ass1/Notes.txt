@@ -61,3 +61,7 @@ Notes
 	a. how to use code
 2. Make test csv files and describe them
 3. Ask about random characters
+
+comment out comma check turn back on
+count pids
+output to idir when ddir doesnt exist

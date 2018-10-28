@@ -165,10 +165,7 @@ int directory_crawler(char * sorting_directory,char * sorting_column, char * out
 
 //Where argv is what we're sorting by , file, output directory
 int sortCSV(char *argv, char* ffile, char* ddir, char* idir){
-	if(PRINT == 2){
-		printf("File is : %s\n", ffile);
-		printf("idir is  : %s\n", idir);
-	}
+
 	//file + directory
 	char * fffile;
 	fffile = malloc(sizeof(char)*(strlen(idir) + strlen(ffile)));
@@ -197,7 +194,8 @@ if(fp==NULL){
 //fileDoesNotExist
 return -1;
 }else{
-	printf("open success\n");
+	//printf("open success\n");
+	
 }
 
 //check last 4 letters .csv
@@ -211,17 +209,22 @@ h++;
 }
 if(strcmp(end,".csv")!=0){
 	printf("notcsv\n");
-fclose(fp);
-return -1;
+	fclose(fp);
+	printf("one\n");
+	return -1;
 }else{
-	printf("File is a csv\n");
+	if(PRINT == 2){
+		printf("File is a csv\n");
+		printf("File is : %s\n", ffile);
+		printf("idir is  : %s\n", idir);
+	}
 }
 
 //not CSV files...
 
 //Therefore we know we are working with csv file which exists
 
-char * buffer = (char *)malloc(sizeof(char)*5000);
+char * buffer = (char *)malloc(sizeof(char *)*5000);
 size_t len = 0;
 Node *front=NULL;
 Node * ptr = NULL;
@@ -365,13 +368,15 @@ while((getline(&buffer, &len, fp)!=-1)){
 
 		}
 		//printf("%d-%d-%d \n", commacheck,totalfakes,commamax);
-		
+		/*
 		if(commacheck-totalfakes!=commamax-1){
 			//ignore formatted incorrectly
-		//fprintf(stderr, "%s\n","Error: Bad formatting with commas.");
-		fclose(fp);
-		return -1;
+			//fprintf(stderr, "%s\n","Error: Bad formatting with commas.");
+			fclose(fp);
+			printf("two\n");
+			return -1;
 		}
+		 */
 		for(u=0;u<=(comma+fakecommas);u++){
 				
 			find = strsep(&copy, ",");
@@ -406,6 +411,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 		//ignore
 		fprintf(stderr, "%s\n","Error: Parameter not found.");
 		fclose(fp);
+		printf("three\n");
 		return -1;
 	}
 	//Checking directory
@@ -415,6 +421,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 	if(stat(ddir, &st)== -1){
 		//mkdir(ddir, 0700);
 		fclose(fp);
+		printf("four\n");
 		return(-1);
 	}
 	
@@ -458,6 +465,7 @@ while((getline(&buffer, &len, fp)!=-1)){
 	
 	
 	fclose(fp);
+	printf("five\n");
 	return 0;
 
 }
