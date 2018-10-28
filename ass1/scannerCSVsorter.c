@@ -362,15 +362,15 @@ while((getline(&buffer, &len, fp)!=-1)){
 		
 	
 		int stupid = (int) strlen(copy);
-		commacheck = 0;
-		fakecommas = 0;
-		totalfakes = 0;
-		titlename=0;
-		firsty = 0;
-		fraud = 0;
-		quotes=0;
-		openingcomma=0;
-		closingcomma=0;
+		int commacheck = 0;
+		int fakecommas = 0;
+		int totalfakes = 0;
+		int titlename=0;
+		int firsty = 0;
+		int fraud = 0;
+		int quotes=0;
+		int openingcomma=0;
+		int closingcomma=0;
 		//finding fake commas per category
 		
 		for(i=0;i<stupid;i++){
@@ -395,7 +395,9 @@ while((getline(&buffer, &len, fp)!=-1)){
 			}
 			
 			if(firsty==1&&dumbo=='"'&&quotes==0){
-				printf("opening:%d\t",i);
+				if(PRINT == 4){
+					printf("opening:%d\t",i);
+				}
 				openingcomma = i;
 				quotes=1;
 			}
@@ -407,7 +409,9 @@ while((getline(&buffer, &len, fp)!=-1)){
 			
 			
 			if(fraud==1){
-				printf("closing: %d\n",i);
+				if(PRINT == 4){
+					printf("closing: %d\n",i);
+				}
 				closingcomma=i;
 				break;
 			}
@@ -444,12 +448,14 @@ while((getline(&buffer, &len, fp)!=-1)){
 		u=0;
 		
 		if(fraud==1){
-			printf("fraud\n");
+			if(PRINT == 4)
+				printf("fraud\n");
 			for(i=openingcomma+1;i<=closingcomma-1;i++){
 				find[u]=copy[i];
 				u++;
 			}
-			printf("%s\n",find);
+			if(PRINT == 4)
+				printf("%s\n",find);
 		}
 		else{
 			
